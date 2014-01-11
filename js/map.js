@@ -17,18 +17,25 @@ function showInfo(data) {
 		var coord = [data[i].lat, data[i].long];
 		var title = data[i].name;
 		var desc = data[i].address;
-		var active = (data[i].active === "Yes") ? true : false;
-		addDistributionCenter(map, coord, title, desc, active);
+		var active = data[i].active;
+		var type = data[i].type;
+		addDistributionCenter(map, coord, title, desc, active, type);
 	}
 }
 
 //	Add markers
-function addDistributionCenter(map, coord, title, description, active) {
+function addDistributionCenter(map, coord, title, description, active, type) {
 	var color, symbol;
-	if (active) {
-		color = '#a3e46b';
+	if (type === "Handout") {
 		symbol = 'water';
 	} else {
+		symbol = 'bank';
+	}
+	if (active === "Yes") {
+		color = '#a3e46b';
+	} else if (active === "Unknown") {
+		color = '#f1f075';
+	} else if (active === "No") {
 		color = '#f86767';
 		symbol = 'cross';
 	}
@@ -40,7 +47,7 @@ function addDistributionCenter(map, coord, title, description, active) {
 		},
 		properties: {
 			title: title,
-			description: description,
+			description: "Has water: " + active + "<br />" + "Handout or purchase: " + type + "<br />" + description,
 			'marker-size': 'medium',
 	    	'marker-color': color,
 	    	'marker-symbol': symbol
