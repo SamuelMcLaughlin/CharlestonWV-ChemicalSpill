@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } );
 });
 function showInfo(data) {
-	var map = L.mapbox.map('map', 'sghodas.gpm3h8la')
+	var map = L.mapbox.map('map', 'sghodas.gpmob8od')
 		.setView([38.3486917, -81.632324], 11);
 
 	for (var i = 0; i < data.length; i++) {
@@ -39,6 +39,7 @@ function addDistributionCenter(map, coord, title, description, active, type) {
 		color = '#f86767';
 		symbol = 'cross';
 	}
+	console.log(active);
 	L.mapbox.markerLayer({
 		type: 'Feature',
 		geometry: {
