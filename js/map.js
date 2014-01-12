@@ -62,12 +62,16 @@ jQuery(function($){
 });
 
 //Collapse
-$(".expander").click(function(){
-	console.log('collapse');
-	$(".content").toggle("slow");
-			$('.expander').toggleClass('closed');
-
+$("#exp1").click(function(){
+	$("#content1").toggle('fast');
+	$('#exp1').toggleClass('closed');
 });
+
+$("#exp2").click(function(){
+	$("#content2").toggle('fast');
+	$('#exp2').toggleClass('closed');
+});
+
 
 $("#register").click(function(){
 	function showResult(text){

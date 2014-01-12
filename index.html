@@ -40,7 +40,7 @@
 		z-index:999;
 		background-color: rgba(255,255,255,0.8);
 		border: 1px solid #D9D9D9;
-		padding: 15px;
+    	padding: 15px;  
 		width: 250px;
 	}	
 
@@ -125,7 +125,7 @@
 		font-size: 20px;
 		vertical-align: 39%;
 		position: absolute;
-		top: 15px;
+		top: 13px;
 		right: 15px;
 		display: inline-block;
 		text-decoration: none;
@@ -146,14 +146,47 @@
         -moz-transform: rotate(45deg);
     }
 
-    #content-heading{
-    	font-size: 17px;
+    .content-heading{
+    	font-size: 16px;
     	font-weight: bold;
     }
 
-    #content-heading div{
+    .content-heading div{
 		display: inline-block;
 		width: 90%;
+    }
+
+    #filter-box{
+		position:absolute; 
+		left:13px;
+		bottom:13px;
+		z-index:999;		
+		width: 270px;
+    	border: 1px solid #D9D9D9;
+    	background-color: rgba(255,255,255,0.8); 
+    	padding: 10px;  
+    }
+
+    #filter-box .expander{
+    	top: 8px;
+    }
+
+    #filter-box .btn{
+    	margin-top: 10px;
+    	display: inline-block;
+    	width: 19%;
+    	padding: 10px 0px; 	
+    	font-size: 12px;
+    	text-align: center;
+    }
+
+    #filter-box .btn:first-of-type{
+    	border-left: 1px solid #D9D9D9;
+    	width: 14%;
+    }
+
+    #filter-box .btn:last-of-type{
+    	border-right: 1px solid #D9D9D9;
     }
   </style>
 </head>
@@ -164,12 +197,12 @@
 	</div>
 	
 	<div id="register-box">
-		<div id="content-heading">
+		<div class="content-heading">
 			<div>Register for SMS Updates</div>	
-			<a class="expander" href="#">×</a>
+			<a class="expander" id="exp1" href="#">×</a>
 		</div>
 
-		<div class="content">
+		<div id="content1">
 			
 			<p id="result"></p>
 
@@ -184,6 +217,22 @@
 				We'll never share your info. This is provided as a public service by <a href=""> Syntropy LLC</a> & <a href="http://www.floco.co">Floco Apps LLC</a>				
 			</p>
 		</div>
+	</div>
+
+	<div id='filter-box'>
+		<div class="content-heading">
+			<div>Filter Map Listings</div>	
+			<a class="expander" id="exp2" href="#">×</a>
+		</div>
+		<div id='content2'>
+			<a href="#" class="btn">All</a>
+			<a href="#" class="btn">Water</a>
+			<a href="#" class="btn">Laundry</a>
+			<a href="#" class="btn">Shower</a>
+			<a href="#" class="btn">Food</a>
+		</div>
+
+
 	</div>
 
 	<div id='map'></div>
