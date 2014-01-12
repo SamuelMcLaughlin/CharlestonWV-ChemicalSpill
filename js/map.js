@@ -1,8 +1,3 @@
-
-//	Constants
-var SPREADSHEET_URL = "https://spreadsheets.google.com/pub?key=0AreUm0TGZqmEdEM1dk5rXzRnY0poNXRKS1FWdzNqb1E&hl=en&output=html";
-var SPREADSHEET_KEY = "0AreUm0TGZqmEdEM1dk5rXzRnY0poNXRKS1FWdzNqb1E";
-
 //	Spreadsheet API
 document.addEventListener('DOMContentLoaded', function() {
 	var gData;
@@ -10,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } );
 });
 function showInfo(data) {
-	var map = L.mapbox.map('map', 'sghodas.gpmob8od')
+	var map = L.mapbox.map('map', MAPBOX_MAP_ID)
 		.setView([38.3486917, -81.632324], 11);
 
 	for (var i = 0; i < data.length; i++) {
