@@ -4,9 +4,15 @@ document.addEventListener('DOMContentLoaded', function() {
 	var URL = SPREADSHEET_KEY;
 	Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } );
 });
+
+var map = L.mapbox.map('map', MAPBOX_MAP_ID);
+
 function showInfo(data) {
-	var map = L.mapbox.map('map', MAPBOX_MAP_ID)
-		.setView([38.3486917, -81.632324], 11);
+    if (navigator.geolocation){
+        map.locate();
+    } else {
+        map.setView([38.3486917, -81.632324], 11);
+    }
 
 	for (var i = 0; i < data.length; i++) {
 		var coord = [data[i].lat, data[i].long];
@@ -18,6 +24,24 @@ function showInfo(data) {
 		addDistributionCenter(map, coord, title, desc, active, type, notes);
 	}
 }
+
+// Once we've got a position, zoom and center the map
+// on it, and add a single marker.
+map.on('locationfound', function(e) {
+    map.fitBounds(e.bounds);
+    map.setZoom(12)
+    map.markerLayer.setGeoJSON({
+        type: "Feature",
+        geometry: {
+            type: "Point",
+            coordinates: [e.latlng.lng, e.latlng.lat]
+        },
+        properties: {
+            'marker-color': '#000',
+            'marker-symbol': 'star'
+        }
+    });
+});
 
 //	Add markers
 function addDistributionCenter(map, coord, title, address, active, type, notes) {
