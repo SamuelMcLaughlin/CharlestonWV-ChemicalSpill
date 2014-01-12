@@ -5,9 +5,31 @@ document.addEventListener('DOMContentLoaded', function() {
 	Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } );
 });
 
-var map = L.mapbox.map('map', MAPBOX_MAP_ID);
+var map;
 
 function showInfo(data) {
+
+	map = L.mapbox.map('map', "sghodas.gpmob8od");
+
+	// Once we've got a position, zoom and center the map
+	// on it, and add a single marker.
+	map.on('locationfound', function(e) {
+	    map.fitBounds(e.bounds);
+	    map.setZoom(12)
+	    map.markerLayer.setGeoJSON({
+	        type: "Feature",
+	        geometry: {
+	            type: "Point",
+	            coordinates: [e.latlng.lng, e.latlng.lat]
+	        },
+	        properties: {
+	            title: "Current Location",
+	            'marker-color': '#000',
+	            'marker-symbol': 'star'
+	        }
+	    });
+	});
+
     if (navigator.geolocation){
         map.locate();
     } else {
@@ -25,41 +47,24 @@ function showInfo(data) {
 	}
 }
 
-// Once we've got a position, zoom and center the map
-// on it, and add a single marker.
-map.on('locationfound', function(e) {
-    map.fitBounds(e.bounds);
-    map.setZoom(12)
-    map.markerLayer.setGeoJSON({
-        type: "Feature",
-        geometry: {
-            type: "Point",
-            coordinates: [e.latlng.lng, e.latlng.lat]
-        },
-        properties: {
-            title: "Current Location",
-            'marker-color': '#000',
-            'marker-symbol': 'star'
-        }
-    });
-});
+
 
 //	Add markers
 function addDistributionCenter(map, coord, title, address, active, type, notes) {
-	var color, symbol;
-	symbol = 'water'
+	var symbol = 'water'
+	var color = "#0066FF"
+	
 	if (type == "Laundromat") {
 		symbol = "clothing-store"
+		color = "#00CC00"
+	} else if (type == "Shower") {
+		symbol = "swimming"
+		color = "#FFFF00"
+	} else if (type == "Restaurant") {
+		symbol = "restaurant"
+		color = "#f4a460"
 	}
 	
-	if (active === "Yes") {
-		color = '#a3e46b';
-	} else if (active === "Unknown") {
-		color = '#f1f075';
-	} else if (active === "No") {
-		color = '#f86767';
-		symbol = 'cross';
-	}
 	L.mapbox.markerLayer({
 		type: 'Feature',
 		geometry: {
