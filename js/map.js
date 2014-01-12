@@ -37,6 +37,7 @@ map.on('locationfound', function(e) {
             coordinates: [e.latlng.lng, e.latlng.lat]
         },
         properties: {
+            title: "Current Location",
             'marker-color': '#000',
             'marker-symbol': 'star'
         }
