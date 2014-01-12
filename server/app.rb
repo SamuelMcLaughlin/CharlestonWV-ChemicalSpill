@@ -70,3 +70,20 @@ end
 def validate_phone number
   Phoner::Phone.parse(number.to_s).to_s
 end
+
+def message_all text
+  count = $redis.scard('numbers')
+  errors = []
+  $redis.smembers('numbers').each do |value|
+    begin
+      $client.account.messages.create(
+          :from => $from,
+          :to => value,
+          :body => text
+      )
+    rescue Twilio::REST::RequestError => e
+      errors << {to:value, error:e.message}
+    end
+  end
+  {count:count,errors:errors}
+end
