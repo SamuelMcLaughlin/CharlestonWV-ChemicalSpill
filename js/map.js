@@ -14,12 +14,13 @@ function showInfo(data) {
 		var desc = data[i].address;
 		var active = data[i].active;
 		var type = data[i].type;
-		addDistributionCenter(map, coord, title, desc, active, type);
+        var notes = data[i].notes;
+		addDistributionCenter(map, coord, title, desc, active, type, notes);
 	}
 }
 
 //	Add markers
-function addDistributionCenter(map, coord, title, address, active, type) {
+function addDistributionCenter(map, coord, title, address, active, type, notes) {
 	var color, symbol;
 	if (type === "Handout") {
 		symbol = 'water';
@@ -42,10 +43,13 @@ function addDistributionCenter(map, coord, title, address, active, type) {
 		},
 		properties: {
 			title: title,
-			description: "Has water: " + active + "<br />" + "Handout or purchase: " + type + "<br />" + "<a href='https://www.google.com/maps/preview#!q="+address+"' target=_blank>"+ address+"</a>",
 			'marker-size': 'medium',
 	    	'marker-color': color,
-	    	'marker-symbol': symbol
+	    	'marker-symbol': symbol,
+            description: "Has water: " + active + "<br />" +
+                "Handout or purchase: " + type + "<br />" +
+                "Address: <a href='https://www.google.com/maps/preview#!q="+address+"' target=_blank>"+ address+"</a>" + "<br />" +
+                "Info: " + notes
 		}
 	}).addTo(map);
 }
