@@ -76,8 +76,7 @@ function addDistributionCenter(map, coord, title, address, active, type, notes) 
 			'marker-size': 'medium',
 	    	'marker-color': color,
 	    	'marker-symbol': symbol,
-            description: "Is Active: " + active + "<br />" +
-                "Type: " + type + "<br />" +
+            description: "Type: " + type + "<br />" +
                 "Address: <a href='https://www.google.com/maps/preview#!q="+address+"' target=_blank>"+ address+"</a>" + "<br />" +
                 "Info: " + notes
 		}
