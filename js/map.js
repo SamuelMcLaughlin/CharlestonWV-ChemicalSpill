@@ -54,3 +54,33 @@ function addDistributionCenter(map, coord, title, address, active, type) {
 		}
 	}).addTo(map);
 }
+
+//Phone input masking
+
+jQuery(function($){
+   $("#phone").mask("(999) 999-9999");
+});
+
+$("#register").click(function(){
+	function showResult(text){
+		$('#result').addClass('result');
+		$('#result').text(text);
+	}
+
+	var phone = $("#phone").val().replace(/[^0-9]/gi,'');
+	if (phone.length != 10){
+		showResult('Please enter a 10 digit phone number.');
+	}
+	else{
+		$('#register').prop('disabled', true);
+		$.ajax({
+                	url: 'http://wv-find-water-sms.herokuapp.com/phones?number='+phone,
+                    dataType: 'jsonp',                    
+                    success: function(data){
+                    	$('#register').prop('disabled', false);
+                    	result = $.parseJSON(data)
+                    	showResult(result['message']);
+               }
+        });	
+	}	
+})
