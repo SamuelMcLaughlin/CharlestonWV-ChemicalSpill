@@ -45,12 +45,15 @@ function showInfo(data) {
         var notes = data[i].notes;
 
         var showing = $.url(window.location.url).param('showing');
-        showing = showing.replace("/","");
-        console.log(showing)
-
-        if (showing === null || showing == undefined || showing === 'all' || showing === type) {
+        if (showing === undefined) {
         	addDistributionCenter(map, coord, title, desc, active, type, notes);
+        } else {
+        	showing = showing.replace("/","");
+        	if (showing === null || showing == undefined || showing === 'all' || showing === type) {
+        		addDistributionCenter(map, coord, title, desc, active, type, notes);
+        	}
         }
+        
 	}
 }
 
