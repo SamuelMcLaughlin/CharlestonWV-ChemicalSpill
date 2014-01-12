@@ -51,6 +51,14 @@ get '/unsubscribe' do
    end
 end
 
+post '/update/:subset' do
+  request_body = JSON.parse request.body.read
+  if params[:subset] == 'REDACTED' and params['token'] == 'REDACTED'
+    result = message_all request_body['message']
+    halt [200, {message:"Success! Message '#{request_body['message']}' sent to #{result[:count]} numbers.", errors:result[:errors]}.to_json]
+  end
+end
+
 def handle_phone(number)
   valid = validate_phone number
 
