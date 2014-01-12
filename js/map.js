@@ -47,11 +47,11 @@ map.on('locationfound', function(e) {
 //	Add markers
 function addDistributionCenter(map, coord, title, address, active, type, notes) {
 	var color, symbol;
-	if (type === "Handout") {
-		symbol = 'water';
-	} else {
-		symbol = 'bank';
+	symbol = 'water'
+	if (type == "Laundromat") {
+		symbol = "clothing-store"
 	}
+	
 	if (active === "Yes") {
 		color = '#a3e46b';
 	} else if (active === "Unknown") {
@@ -71,8 +71,8 @@ function addDistributionCenter(map, coord, title, address, active, type, notes) 
 			'marker-size': 'medium',
 	    	'marker-color': color,
 	    	'marker-symbol': symbol,
-            description: "Has water: " + active + "<br />" +
-                "Handout or purchase: " + type + "<br />" +
+            description: "Is Active: " + active + "<br />" +
+                "Type: " + type + "<br />" +
                 "Address: <a href='https://www.google.com/maps/preview#!q="+address+"' target=_blank>"+ address+"</a>" + "<br />" +
                 "Info: " + notes
 		}
