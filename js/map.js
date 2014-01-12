@@ -64,12 +64,16 @@ jQuery(function($){
 //Collapse
 $("#exp1").click(function(){
 	$("#content1").toggle('fast');
+	$('#register-box').toggleClass('narrow-register');
 	$('#exp1').toggleClass('closed');
+
 });
 
 $("#exp2").click(function(){
 	$("#content2").toggle('fast');
+	$('#filter-box').toggleClass('narrow-filter');
 	$('#exp2').toggleClass('closed');
+
 });
 
 
