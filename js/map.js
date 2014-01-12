@@ -61,6 +61,14 @@ jQuery(function($){
    $("#phone").mask("(999) 999-9999");
 });
 
+//Collapse
+$(".expander").click(function(){
+	console.log('collapse');
+	$(".content").toggle("slow");
+			$('.expander').toggleClass('closed');
+
+});
+
 $("#register").click(function(){
 	function showResult(text){
 		$('#result').addClass('result');
