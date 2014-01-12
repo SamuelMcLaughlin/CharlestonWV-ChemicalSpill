@@ -43,7 +43,14 @@ function showInfo(data) {
 		var active = data[i].active;
 		var type = data[i].type;
         var notes = data[i].notes;
-		addDistributionCenter(map, coord, title, desc, active, type, notes);
+
+        var showing = $.url(window.location.url).param('showing');
+        showing = showing.replace("/","");
+        console.log(showing)
+
+        if (showing === null || showing == undefined || showing === 'all' || showing === type) {
+        	addDistributionCenter(map, coord, title, desc, active, type, notes);
+        }
 	}
 }
 
