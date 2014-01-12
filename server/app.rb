@@ -12,10 +12,10 @@ configure do
   $redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
 
   #Twilio
-  account_sid = "RECACTED"
-  auth_token = "RECACTED"
+  account_sid = "REDACTED"
+  auth_token = "REDACTED"
   $client = Twilio::REST::Client.new account_sid, auth_token
-  $from = "RECACTED"
+  $from = "REDACTED"
 
   #Phoner
   Phoner::Phone.default_country_code = '1'
