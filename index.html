@@ -3,197 +3,16 @@
 <head>
 <meta charset=utf-8 />
 <title>Water Distribution Centers</title>
-  
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
   <link href='http://api.tiles.mapbox.com/mapbox.js/v1.6.0/mapbox.css' rel='stylesheet' />
-
-  <style>
-    body { margin:0; padding:0; background-color: #F9F9F9; font-family: Helvetica; font-size: 14px;}
-
-    #title {
-    	float: left;
-    	margin-left: 20px;
-    	font-weight: bold;
-    }
-
-    #info {
-    	float: right;
-    	margin-right: 20px;
-    	margin-top: 20px;
-    	font-size: 14px;
-    }
-
-	#map { 
-    	position:absolute; 
-    	top:53px; 
-    	bottom:0; 
-    	width:100%; 
-    	border-top-style: solid;
-    	border-top-width: 1px;
-    	border-top-color: #D9D9D9;
-	}
-
-	#register-box{
-		position:absolute; 
-		right:13px;
-		top:65px;
-		z-index:999;
-		background-color: rgba(255,255,255,0.8);
-		border: 1px solid #D9D9D9;
-    	padding: 15px;  
-		width: 250px;
-	}	
-
-    #topbar {
-    	font-size: 17px;
-    	color: #1f1f1f;
-    	width: 100%;
-    }    
-
-    .result{
-    	background-color: rgba(255,255,255,0.8);
-		border: 1px solid #D9D9D9;
-		padding: 10px;
-		font-weight: bold;
-    }    
-
-    #register-box input{
-    	width: 90%;
-    	display: block;
-		height: 28px;
-		padding: 6px 12px;
-		font-size: 14px;
-		line-height: 1.428571429;
-		color: #555;
-		vertical-align: middle;
-		background-color: #fff;
-		background-image: none;
-		border: 1px solid #ccc;
-		-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
-		box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
-		-webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-		transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-		margin-bottom: 10px;
-    }
-
-    #register-box button
-    {
-		font-size: 14px;
-		width: 100%;
-		border: none;	
-	}
-
-	.btn {
-	  background: #3395d6;
-	  background-image: -webkit-linear-gradient(top, #3395d6, #2980b9);
-	  background-image: -moz-linear-gradient(top, #3395d6, #2980b9);
-	  background-image: -ms-linear-gradient(top, #3395d6, #2980b9);
-	  background-image: -o-linear-gradient(top, #3395d6, #2980b9);
-	  background-image: linear-gradient(to bottom, #3395d6, #2980b9);
-	  -webkit-border-radius: 0;
-	  -moz-border-radius: 0;
-	  border-radius: 0px;
-	  color: #ffffff;
-	  font-size: 20px;
-	  padding: 10px 20px 10px 20px;
-	  text-decoration: none;
-	}
-
-	.btn:hover {
-	  background: #3cb0fd;
-	  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
-	  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
-	  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
-	  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
-	  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
-	  text-decoration: none;
-	}
-
-    #disclaimer{
-    	color: #999; 
-    	font-size: 13px;   	
-    }
-
-    h1, h2, h3, h4, h5, h6{
-    	font-family: Helvetica;
-    	padding: 0;
-    	margin: 0;
-    }
-
-    .expander{
-    	text-align: right;
-		font-size: 20px;
-		vertical-align: 39%;
-		position: absolute;
-		top: 13px;
-		right: 15px;
-		display: inline-block;
-		text-decoration: none;
-		overflow: hidden;
-		vertical-align: middle;
-		-moz-transition: all .5s ease;
-		-webkit-transition: all .5s ease;
-		transition: all .5s ease;
-		-webkit-transform: rotate(0deg);
-		-moz-transform: rotate(0deg);
-	}
-
-    .closed{
-		-moz-transition:all .5s ease;
-        -webkit-transition:all .5s ease;
-        transition:all .5s ease;
-        -webkit-transform: rotate(45deg);
-        -moz-transform: rotate(45deg);
-    }
-
-    .content-heading{
-    	font-size: 16px;
-    	font-weight: bold;
-    }
-
-    .content-heading div{
-		display: inline-block;
-		width: 90%;
-    }
-
-    #filter-box{
-		position:absolute; 
-		left:13px;
-		bottom:13px;
-		z-index:999;		
-		width: 270px;
-    	border: 1px solid #D9D9D9;
-    	background-color: rgba(255,255,255,0.8); 
-    	padding: 15px;  
-    }
-
-    #filter-box .expander{
-    	top: 13px;
-    }
-
-    #filter-box .btn{
-    	margin-top: 10px;
-    	display: inline-block;
-    	width: 19%;
-    	padding: 10px 0px; 	
-    	font-size: 12px;
-    	text-align: center;
-    }
-
-    #filter-box .btn:first-of-type{
-    	border-left: 1px solid #D9D9D9;
-    	width: 14%;
-    }
-
-    #filter-box .btn:last-of-type{
-    	border-right: 1px solid #D9D9D9;
-    }
-  </style>
+  <link href='css/style.css' rel='stylesheet'/>
 </head>
 <body>
 	<div id='topbar'>
-		<p id='title'>West Virginia &mdash; Water Distribution Centers</p>
-		<p id='info'>Please email us at <strong>wvfindwater@gmail.com</strong> if you have any information on water distribution locations.</p>
+		<p id='title'>West Virginia Find Water</p>
+		<span id="info">
+		Please email us at <a href="mailto:wvfindwater@gmail.com">wvfindwater@gmail.com</a> if you have any information on water distribution locations. 
+		</span>
 	</div>
 	
 	<div id="register-box">
@@ -202,8 +21,7 @@
 			<a class="expander" id="exp1" href="#">×</a>
 		</div>
 
-		<div id="content1">
-			
+		<div id="content1">			
 			<p id="result"></p>
 
 			<p>
@@ -211,17 +29,21 @@
 			</p>
 
 			<input type="text" id="phone" placeholder="(___) ___-____"/>
-			<button id="register" class="btn">Register for Updates</button>
-			
-			<p id="disclaimer">
-				We'll never share your info. This is provided as a public service by <a href="http://logan-spears.squarespace.com/"> Syntropy LLC</a> & <a href="http://www.floco.co">Floco Apps LLC</a>
+			<button id="register" class="btn">Register for Updates</button>		
+
+			<p class="disclaimer">
+				Email us at <a href="mailto:wvfindwater@gmail.com">wvfindwater@gmail.com</a> if you have any info on water distribution locations.
 			</p>
+
+			<p class="disclaimer">
+				We'll never share your info. This is provided as a public service by <a href="syntropy.io"> Syntropy LLC</a> & <a href="http://www.floco.co">Floco Apps LLC</a>.	
+			</p>			
 		</div>
 	</div>
 
 	<div id='filter-box'>
 		<div class="content-heading">
-			<div>Filter Map Listings</div>	
+			<div>Filter</div>	
 			<a class="expander" id="exp2" href="#">×</a>
 		</div>
 		<div id='content2'>
