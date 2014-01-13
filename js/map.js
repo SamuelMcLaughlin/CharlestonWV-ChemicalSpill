@@ -1,17 +1,40 @@
-
-//	Constants
-var SPREADSHEET_URL = "https://spreadsheets.google.com/pub?key=0AreUm0TGZqmEdEM1dk5rXzRnY0poNXRKS1FWdzNqb1E&hl=en&output=html";
-var SPREADSHEET_KEY = "0AreUm0TGZqmEdEM1dk5rXzRnY0poNXRKS1FWdzNqb1E";
-
 //	Spreadsheet API
 document.addEventListener('DOMContentLoaded', function() {
 	var gData;
 	var URL = SPREADSHEET_KEY;
 	Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } );
 });
+
+var map;
+
 function showInfo(data) {
-	var map = L.mapbox.map('map', 'sghodas.gpmob8od')
-		.setView([38.3486917, -81.632324], 11);
+
+	map = L.mapbox.map('map', "sghodas.gpmob8od");
+
+	// Once we've got a position, zoom and center the map
+	// on it, and add a single marker.
+	map.on('locationfound', function(e) {
+	    map.fitBounds(e.bounds);
+	    map.setZoom(12)
+	    map.markerLayer.setGeoJSON({
+	        type: "Feature",
+	        geometry: {
+	            type: "Point",
+	            coordinates: [e.latlng.lng, e.latlng.lat]
+	        },
+	        properties: {
+	            title: "Current Location",
+	            'marker-color': '#000',
+	            'marker-symbol': 'star'
+	        }
+	    });
+	});
+
+    if (navigator.geolocation){
+        map.locate();
+    } else {
+        map.setView([38.3486917, -81.632324], 11);
+    }
 
 	for (var i = 0; i < data.length; i++) {
 		var coord = [data[i].lat, data[i].long];
@@ -19,26 +42,39 @@ function showInfo(data) {
 		var desc = data[i].address;
 		var active = data[i].active;
 		var type = data[i].type;
-		addDistributionCenter(map, coord, title, desc, active, type);
+        var notes = data[i].notes;
+
+        var showing = $.url(window.location.url).param('showing');
+        if (showing === undefined) {
+        	addDistributionCenter(map, coord, title, desc, active, type, notes);
+        } else {
+        	showing = showing.replace("/","");
+        	if (showing === null || showing == undefined || showing === 'all' || showing === type) {
+        		addDistributionCenter(map, coord, title, desc, active, type, notes);
+        	}
+        }
+        
 	}
 }
 
+
+
 //	Add markers
-function addDistributionCenter(map, coord, title, address, active, type) {
-	var color, symbol;
-	if (type === "Handout") {
-		symbol = 'water';
-	} else {
-		symbol = 'bank';
+function addDistributionCenter(map, coord, title, address, active, type, notes) {
+	var symbol = 'water'
+	var color = "#0066FF"
+	
+	if (type == "Laundromat") {
+		symbol = "clothing-store"
+		color = "#00CC00"
+	} else if (type == "Shower") {
+		symbol = "swimming"
+		color = "#FFFF00"
+	} else if (type == "Restaurant") {
+		symbol = "restaurant"
+		color = "#f4a460"
 	}
-	if (active === "Yes") {
-		color = '#a3e46b';
-	} else if (active === "Unknown") {
-		color = '#f1f075';
-	} else if (active === "No") {
-		color = '#f86767';
-		symbol = 'cross';
-	}
+	
 	L.mapbox.markerLayer({
 		type: 'Feature',
 		geometry: {
@@ -47,10 +83,12 @@ function addDistributionCenter(map, coord, title, address, active, type) {
 		},
 		properties: {
 			title: title,
-			description: "Has water: " + active + "<br />" + "Handout or purchase: " + type + "<br />" + "<a href='https://www.google.com/maps/preview#!q="+address+"' target=_blank>"+ address+"</a>",
 			'marker-size': 'medium',
 	    	'marker-color': color,
-	    	'marker-symbol': symbol
+	    	'marker-symbol': symbol,
+            description: "Type: " + type + "<br />" +
+                "Address: <a href='https://www.google.com/maps/preview#!q="+address+"' target=_blank>"+ address+"</a>" + "<br />" +
+                "Info: " + notes
 		}
 	}).addTo(map);
 }

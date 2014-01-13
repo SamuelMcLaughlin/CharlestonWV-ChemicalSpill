@@ -1,0 +1,5 @@
+all_counties.json
+
+*.xml
+
+.idea/encodings.xml
