@@ -82,10 +82,6 @@ function close(){
   	$("#content1").toggle(false);
 	$('#register-box').addClass('narrow-register');
 	$('#exp1').addClass('closed');
-
-	$("#content2").toggle(false);
-	$('#filter-box').addClass('narrow-filter');
-	$('#exp2').addClass('closed');  
 }
 
 $(document).ready(function(){
